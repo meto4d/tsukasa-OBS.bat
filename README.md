@@ -9,7 +9,7 @@ tsukasaをOBSで使うときにもう少し便利になるかもしれないバ�
 
 の3手順が必要ですが、
 
-これを使うと、これが`push待機＋tsukasa起動`をしてくれるので、
+これを使うと、これが`(鏡を借りてきて)push待機＋tsukasa起動`をしてくれるので、
 > tsukasa-OBS.batダブルクリック→OBSで配信開始
 
 だけで済むようになります。
@@ -21,7 +21,7 @@ tsukasaをOBSで使うときにもう少し便利になるかもしれないバ�
 もしくは、[tsukasa単体](https://github.com/shinji3/tsukasa.exe)及び[ffmpeg](https://www.ffmpeg.org/)（分かる人向け）
 
 - 置き場設定されているkagamin  
-鏡置き場  
+公開されてる置き場でもヨシ  
 もしくは、鏡置き場を有効化した鏡（自鯖でやりたい人向け）
 
 # 使い方
