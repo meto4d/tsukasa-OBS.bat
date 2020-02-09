@@ -24,9 +24,15 @@ set re_ip=
 ::配信URLの表示[on/off]
 set showurl=off
 ::親リダイレクト[on/off]
-set red_p=on
+set red_p=off
 ::子リダイレクト[on/off]
 set red_c=on
+::置き場URLをクリップボードにコピーするときは「TRUE」
+::set clip_f=TRUE
+set clip_f=
+::H264かHEVCか
+set enc=H264
+::set enc=HEVC
 
 
 ::::::::::::::::::::::::
@@ -63,12 +69,23 @@ if not %colonv% == -1 (
 set url="%okiba%/conn.html?Port=%port%^&mode=push^&password=%pass%^&comment=%comment%^&radio=%showurl%^&redir_p=%red_p%^&redir_c=%red_c%^&reserve=%re_ip%^&url="
 
 echo connect to %kagamin%
+if /i "%clip_f%" == "TRUE" (
+    echo %kagamin% | clip
+)
 start "" "%url%"
 
 timeout /t 1 /nobreak >nul 
 
+if /i "%enc%" == "H264" (
+    set enc_t=H264
+    set enc_d=h264_mp4toannexb
+) else if /i "%enc%" == "HEVC" (
+    set enc_t=HEVC
+    set enc_d=hevc_mp4toannexb
+)
+
 :LOOP_ENCODE
-%ffmpeg_path%　-v error -stats -itsoffset 300 -listen 1 -i %rtmp% -c copy -bsf:v h264_mp4toannexb -tag:v H264 -f asf_stream -map a -map v -push 1 -wms 1 %kagamin%
+%ffmpeg_path% -v error -stats -itsoffset 300 -listen 1 -i "%rtmp%" -c copy -bsf:v %enc_d% -tag:v %end_t% -f asf_stream -map a -map v -push 1 -wms 1 "%kagamin%"
 goto :LOOP_ENCODE
 
 ::pause

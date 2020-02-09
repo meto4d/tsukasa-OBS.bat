@@ -26,9 +26,15 @@ set re_ip=
 ::配信URLの表示[on/off]
 set showurl=off
 ::親リダイレクト[on/off]
-set red_p=on
+set red_p=off
 ::子リダイレクト[on/off]
 set red_c=on
+::置き場URLをクリップボードにコピーするときは「TRUE」
+::set clip_f=TRUE
+set clip_f=
+::H264かHEVCか
+set enc=H264
+::set enc=HEVC
 
 ::::::::::::::::::::::::
 :: 以下処理部
@@ -64,11 +70,22 @@ if not %colonv% == -1 (
 set url="%okiba%/conn.html?Port=%port%^&mode=push^&password=%pass%^&comment=%comment%^&radio=%showurl%^&redir_p=%red_p%^&redir_c=%red_c%^&reserve=%re_ip%^&url="
 
 echo connect to %kagamin%
+if /i "%clip_f%" == "TRUE" (
+    echo %kagamin% | clip
+)
 start "" "%url%"
 
 timeout /t 1 /nobreak >nul
 
-%ffmpeg_path% -v error -stats -f live_flv -listen 1 -i %rtmp% -c copy -vtag H264 -bsf:v h264_mp4toannexb -f asf_stream -map a -map v - | %tsukasa_path% %kagamin%
+if /i "%enc%" == "H264" (
+    set enc_t=H264
+    set enc_d=h264_mp4toannexb
+) else if /i "%enc%" == "HEVC" (
+    set enc_t=HEVC
+    set enc_d=hevc_mp4toannexb
+)
+
+%ffmpeg_path% -v error -stats -f live_flv -listen 1 -i "%rtmp%" -c copy -vtag %enc_t% -bsf:v %enc_d% -f asf_stream -map a -map v - | %tsukasa_path% %kagamin%
 
 ::pause
 endlocal
