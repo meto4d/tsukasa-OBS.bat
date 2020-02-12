@@ -21,8 +21,10 @@ tsukasaをOBSで使うときにもう少し便利になるかもしれないバ�
 もしくは、[tsukasa単体](https://github.com/shinji3/tsukasa.exe)及び[ffmpeg](https://www.ffmpeg.org/)（分かる人向け）
 
 - 置き場設定されているkagamin  
-鏡置き場を有効化し、使用ポートを自動で接続待設定済みのkagamin（自鯖でやりたい人向け）
+鏡置き場を有効化し、使用ポートを自動で接続待設定済みのkagamin（自鯖でやりたい人向け）  
+（下図：設定参考画像）  
 もしくは、公開されてる置き場のkagaminでもヨシ
+
 
 # 使い方
 
@@ -34,23 +36,27 @@ tsukasaをOBSで使うときにもう少し便利になるかもしれないバ�
 もしくは、メモ帳にドラッグアンドドロップし、設定項目を入力してください。
 
 ## 主に設定すべき項目
-置き場から鏡を借りて配信する場合は、
+
+tsukasa-OBS.bat内の設定項目の内、主に設定すべきものは
+
+**置き場から鏡を借りて配信**する場合
 - 置き場URL
 - 借りるポート
 - パスワード
 - コメント
 
-自鯖で配信する場合は、kagaminの`鏡置き場モード`と`起動時にエントランスと使用ポートの待機`の2つを設定をして
+**自鯖で配信**する場合  
+kagaminの`起動時に鏡置き場エントランスと使用ポートの待機`([下に設定参考画像あり](#kagaminの設定))の2つを設定をして
 - (kagaminの場所)
 - 置き場URL
 - 借りるポート
 
 を設定
 
-後はダブルクリックして実行し、OBSで配信開始するとできます
+後はこの`tsukasa-OBS.bat`をダブルクリックして実行し、OBSで配信開始するとできます
 
 なお、置き場借りるときに入力するコメント`set comment=`は、  
-[URL エンコード(符号化)/デコード(復号)ツール= Shift_JIS =](https://www.benricho.org/moji_conv/16-URLencode_Shift_JIS.html)にて変換後、`%`を`%%`に変更する必要があります  
+[URL エンコード(符号化)/デコード(復号)ツール= Shift_JIS =](https://www.benricho.org/moji_conv/16-URLencode_Shift_JIS.html)にて変換後、**`%`を`%%`に変更する必要があります**  
 これを忘れると動きません
 
 ## 配信終了する時
@@ -70,14 +76,27 @@ OBSだけだと、無限に接続待機したり、知らずにkagaminが動き�
 
 デフォはShift-JISですが、念の為UTF-8版も用意したので、必要な方をDLしてください
 
+### kagaminの設定
+置き場経由でpush待機してもらうため、  
+kagaminが起動と同時に`置き場モード`と`使用したいポートが待機`になればおｋ  
+なお、置き場ページ自体のポート開放は必要なし  
+大体こんな感じ  
+![置き場設定有効化、及び自動接続待機設定](image/kagamin.png)
+
 # よく聞かれたこと
 tsukasaとかこれとかなんぞやを、なるべく簡単に説明(一部語弊あり)  
+
+---
 
 tsukasa(S2MMSH)登場前  
 ![従来](image/conven_tsukasa.jpg)
 
+---
+
 tsukasa(S2MMSH)登場後  
 ![今](image/tsukasa_release.jpg)
+
+---
 
 このtsukasa-OBS.bat  
 ![これ](image/this.jpg)
